@@ -2,7 +2,7 @@ import css from "./SearchBox.module.css";
 
 export default function SearchBox({ value, onFilter }) {
   return (
-    <div>
+    <div className={css.con}>
       <p>Find contact by name</p>
       <input
         type="text"
