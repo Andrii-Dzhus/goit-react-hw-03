@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import contactDate from "../../contact.json";
 import ContactList from "../ContactList/ContactList";
 import SearchBox from "../SearchBox/SearchBox";
 import ContactForm from "../ContactForm/ContactForm";
 
 export default function App() {
-  const [contacts, setContacts] = useState(contactDate);
+  const [contacts, setContacts] = useState(() => {
+    const saveContacts = window.localStorage.getItem("contacts");
+    return saveContacts !== null ? JSON.parse(saveContacts) : contactDate;
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
+
   const [filter, setFilter] = useState("");
 
   const addContacts = newContacts => {
